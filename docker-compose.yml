@@ -8,6 +8,10 @@ services:
       - "7777:7777"
     environment:
       WEDDING_API_KEY: ${WEDDING_API_KEY}
+      DATA_DIR: /app/data
     volumes:
-      - ./guests.json:/app/guests.json
+      - wedding-data:/app/data
     restart: unless-stopped
+
+volumes:
+  wedding-data:

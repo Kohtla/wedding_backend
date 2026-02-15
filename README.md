@@ -27,7 +27,9 @@ docker compose down
 ```
 
 Переменная `WEDDING_API_KEY` берётся из `.env`.
-Файл с ответами монтируется с хоста: `./guests.json -> /app/guests.json`.
+Данные сохраняются в именованном Docker volume `wedding-data` (`/app/data/guests.json` внутри контейнера).
+
+Для деплоя на сервер смотри [DEPLOY.md](DEPLOY.md).
 
 ## API
 

@@ -34,7 +34,8 @@ class GuestResponse(BaseModel):
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-DATA_FILE = ROOT_DIR / "guests.json"
+DATA_DIR = Path(os.getenv("DATA_DIR", str(ROOT_DIR)))
+DATA_FILE = DATA_DIR / "guests.json"
 API_KEY = os.getenv("WEDDING_API_KEY")
 
 app = FastAPI(title="Wedding Backend")
