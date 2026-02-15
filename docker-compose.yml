@@ -5,7 +5,7 @@ services:
       dockerfile: Dockerfile
     container_name: wedding-backend
     ports:
-      - "8000:8000"
+      - "7777:7777"
     environment:
       WEDDING_API_KEY: ${WEDDING_API_KEY}
     volumes:

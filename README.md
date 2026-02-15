@@ -18,7 +18,7 @@ uvicorn wedding_backend.main:app --reload
 docker compose up --build -d
 ```
 
-Сервис будет доступен на `http://localhost:8000`.
+Сервис будет доступен на `http://localhost:7777`.
 
 Остановка:
 
