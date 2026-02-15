@@ -10,6 +10,25 @@ pip install -e .
 uvicorn wedding_backend.main:app --reload
 ```
 
+## Docker
+
+Запуск через Docker Compose:
+
+```bash
+docker compose up --build -d
+```
+
+Сервис будет доступен на `http://localhost:8000`.
+
+Остановка:
+
+```bash
+docker compose down
+```
+
+Переменная `WEDDING_API_KEY` берётся из `.env`.
+Файл с ответами монтируется с хоста: `./guests.json -> /app/guests.json`.
+
 ## API
 
 ### Authorization
@@ -51,3 +70,8 @@ WEDDING_API_KEY=wdg_8f21d77b4b8a4d98
 ### `GET /guests`
 
 Возвращает список всех гостей с их ответами.
+
+### `GET /guests/csv`
+
+Возвращает CSV-файл со списком гостей и их ответами.
+Колонки: `guest`, `attendance`, `attendance_label`.
