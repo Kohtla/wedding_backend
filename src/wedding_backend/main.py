@@ -6,6 +6,7 @@ import json
 import os
 
 from fastapi import Depends, FastAPI, Header, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 from fastapi.responses import Response
 
@@ -39,6 +40,15 @@ DATA_FILE = DATA_DIR / "guests.json"
 API_KEY = os.getenv("WEDDING_API_KEY")
 
 app = FastAPI(title="Wedding Backend")
+
+# Configure CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Configure with specific origins in production
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 def _check_authorization(
