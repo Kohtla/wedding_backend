@@ -26,11 +26,13 @@ ATTENDANCE_LABELS = {
 
 class GuestResponseCreate(BaseModel):
     guests: list[str] = Field(min_length=1)
+    phone: str | None = None
     attendance: AttendanceOption
 
 
 class GuestResponse(BaseModel):
     guest: str
+    phone: str | None = None
     attendance: AttendanceOption
 
 
@@ -87,6 +89,7 @@ def _read_responses() -> list[dict]:
             normalized.append(
                 {
                     "guest": item["guest"],
+                    "phone": item.get("phone"),
                     "attendance": int(item["attendance"]),
                 }
             )
@@ -96,6 +99,7 @@ def _read_responses() -> list[dict]:
                 normalized.append(
                     {
                         "guest": guest_name,
+                        "phone": item.get("phone"),
                         "attendance": int(item["attendance"]),
                     }
                 )
@@ -109,11 +113,15 @@ def _write_responses(responses: list[dict]) -> None:
 
 def _build_csv_content(responses: list[dict]) -> str:
     output = io.StringIO()
-    writer = csv.DictWriter(output, fieldnames=["guest", "attendance", "attendance_label"])
+    writer = csv.DictWriter(
+        output,
+        fieldnames=["guest", "phone", "attendance", "attendance_label"],
+    )
     writer.writeheader()
     csv_rows = [
         {
             "guest": item["guest"],
+            "phone": item.get("phone"),
             "attendance": item["attendance"],
             "attendance_label": ATTENDANCE_LABELS.get(
                 AttendanceOption(item["attendance"]),
@@ -134,6 +142,7 @@ def create_guest_response(
     created_items = [
         {
             "guest": guest_name,
+            "phone": payload.phone,
             "attendance": int(payload.attendance),
         }
         for guest_name in payload.guests
